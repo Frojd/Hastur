@@ -1,0 +1,25 @@
+{
+  "name": "hastur",
+  "version": "0.0.1",
+  "description": "Small httpserver for rendering of react components",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "test": "mocha test/*.test.js"
+  },
+  "keywords": [
+    "React",
+    "Serverrender",
+    "ReactDOM",
+    "httpserver"
+  ],
+  "author": "Daniel Karlsson",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.0"
+  }
+}
