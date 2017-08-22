@@ -4,10 +4,14 @@
   "description": "Small httpserver for rendering of react components",
   "main": "hastur.js",
   "private": true,
-  "bin": "./hastur.js",
+  "bin": {
+    "hastur": "./hastur.js"
+  },
   "scripts": {
-    "test": "mocha test/*.test.js",
-    "start": "hastur"
+    "test": "mocha test/*.test.js"
+  },
+  "engines": {
+    "node": ">=8.4.0"
   },
   "keywords": [
     "React",
