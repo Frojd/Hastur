@@ -35,7 +35,8 @@ var ReactComponent = function (_React$Component) {
             return _react2.default.createElement(
                 "div",
                 { className: "ReactComponent" },
-                "ReactComponent"
+                "ReactComponent ",
+                this.props.title
             );
         }
     }]);

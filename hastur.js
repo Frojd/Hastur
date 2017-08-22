@@ -10,7 +10,7 @@ const args = process.argv;
 
 const hostname = args.indexOf('host') !== -1 ? args[args.indexOf('host') + 1] : '0.0.0.0';
 const port = args.indexOf('port') !== -1 ? args[args.indexOf('port') + 1] : 3000;
-const componentFolderPath = args.indexOf('path') !== -1 ? args[args.indexOf('path') + 1] : '/';
+const componentFolderPath = args.indexOf('path') !== -1 ? args[args.indexOf('path') + 1] : '';
 
 const server = http.createServer((req, res) => {
     let body = '';
@@ -73,7 +73,7 @@ function renderServerComponent(componentName, data) {
 }
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at http://${hostname}:${port}/\nBase components folder: ${componentFolderPath}`);
 });
 
 module.exports = { getComponentElement, renderServerComponent, renderStaticServerComponent }
