@@ -8,6 +8,17 @@ const React = require('react');
 
 const args = process.argv;
 
+let Raven;
+try {
+    let Raven = require('raven');
+    Raven.config(args[args.indexOf('sentry') + 1]).install();
+    console.log('raven installed')
+} catch(e) {
+    console.log('Raven is not installed', e);
+    Raven = {};
+    Raven.captureException = function(){};
+}
+
 const hostname = args.indexOf('host') !== -1 ? args[args.indexOf('host') + 1] : '0.0.0.0';
 const port = args.indexOf('port') !== -1 ? args[args.indexOf('port') + 1] : 3000;
 const componentFolderPath = args.indexOf('path') !== -1 ? args[args.indexOf('path') + 1] : '';
@@ -47,6 +58,7 @@ const server = http.createServer((req, res) => {
             res.setHeader('Content-Type', 'text/html');
             res.end(component);
         } catch(e) {
+            Raven.captureException(e);
             res.statusCode = 404;
             return res.end(`Component ${componentName} not found. ${e}`);
         }
@@ -54,7 +66,9 @@ const server = http.createServer((req, res) => {
 });
 
 function getComponentElement(componentName, data) {
+    console.log(componentName);
     const componentPath = path.join(componentFolderPath, componentName);
+    console.log(componentPath);
     let component = require(componentPath);
     let element = React.createElement(component.default, data);
     return element;
