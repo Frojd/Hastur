@@ -59,16 +59,14 @@ const server = http.createServer((req, res) => {
             res.end(component);
         } catch(e) {
             Raven.captureException(e);
-            res.statusCode = 404;
-            return res.end(`Component ${componentName} not found. ${e}`);
+            res.statusCode = 500;
+            return res.end(`Exception on ${componentName}. ${e}`);
         }
     });
 });
 
 function getComponentElement(componentName, data) {
-    console.log(componentName);
     const componentPath = path.join(componentFolderPath, componentName);
-    console.log(componentPath);
     let component = require(componentPath);
     let element = React.createElement(component.default, data);
     return element;
