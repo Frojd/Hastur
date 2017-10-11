@@ -4,12 +4,30 @@ A small node httpserver for rendering of react components (must be transpiled if
 ## Requirements
 - Node.js > 8.x
 
-## Installation
+## Installation & start
 1. npm install git://github.com/Frojd/Hastur.git
-2. node hastur.js port 3000 host 0.0.0.0 path /basepath/to/components/ sentry https://xxxx:yyyy@sentry.io/1234
+2. node hastur.js
+
+or
+
+1. Use docker image: iksototh/hastur
+
+## Possible parameters
+
+As env:
+
+    HASTUR_PATH=/path/to/components/
+    HASTUR_PORT=3000
+    HASTUR_HOST=0.0.0.0
+    HASTUR_DEBUG=true
+    HASTUR_SENTRY=https://xxxx:yyyy@sentry.io/1234
+
+As parameters:
+
+    node hastur.js port 3000 host 0.0.0.0 path /path/to/components/ sentry https://xxxx:yyyy@sentry.io/1234 debug
 
 ## How to use
-Will accept json postrequests on http://localhost:3000/ (if no parameters is set) with this body:
+When started (without any parameters) hastur will accept application/json http POST request to http://localhost:3000 with this body:
     
     {
         "componentName": "MyComponent",
@@ -20,7 +38,11 @@ Will accept json postrequests on http://localhost:3000/ (if no parameters is set
         "static": false
     }
 
+How it works is that it will try to do a require(componentName) (if HASTUR_PATH is set, it will be joined together before)
+
 If static it will only return the html with no react bindings
+
+## How to build components
 
 Components is easiest built through babel-cli:
 
