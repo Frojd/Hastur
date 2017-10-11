@@ -3,29 +3,44 @@
 const http = require('http');
 const path = require('path');
 
-const ReactDOMServer = require('react-dom/server')
+const ReactDOMServer = require('react-dom/server');
 const React = require('react');
+
+const purgeCache = require('./utils').purgeCache;
 
 const args = process.argv;
 
+const env = process.env;
+const envPath = env.HASTUR_PATH;
+const envHost = env.HASTUR_HOST;
+const envPort = env.HASTUR_PORT;
+const envDebug = env.HASTUR_DEBUG;
+const envSentry = env.HASTUR_SENTRY;
+
 let Raven;
+let sentry;
 try {
-    let Raven = require('raven');
-    Raven.config(args[args.indexOf('sentry') + 1]).install();
-    console.log('raven installed')
+    Raven = require('raven');
+    sentry = args.indexOf('sentry') !== -1 ? args[args.indexOf('sentry') + 1] : envSentry ? envSentry : '';
+    Raven.config(sentry).install();
+    console.log('Raven installed')
 } catch(e) {
     console.log('Raven is not installed', e);
     Raven = {};
     Raven.captureException = function(){};
 }
 
-const hostname = args.indexOf('host') !== -1 ? args[args.indexOf('host') + 1] : '0.0.0.0';
-const port = args.indexOf('port') !== -1 ? args[args.indexOf('port') + 1] : 3000;
-const componentFolderPath = args.indexOf('path') !== -1 ? args[args.indexOf('path') + 1] : '';
+const hostname = args.indexOf('host') !== -1 ? args[args.indexOf('host') + 1] : envHost ? envHost : '0.0.0.0';
+const port = args.indexOf('port') !== -1 ? args[args.indexOf('port') + 1] : envPort ? envPort : 3000;
+const componentFolderPath = args.indexOf('path') !== -1 ? args[args.indexOf('path') + 1] : envPath ? envPath : '';
+const debug = args.indexOf('debug') !== -1 ? true : envDebug ? envDebug : false;
 
 const server = http.createServer((req, res) => {
     let body = '';
-
+    if(req.method === 'GET') {
+        res.statusCode = 405;
+        return res.end();
+    }
     req.on('data', function (chunk) {
         body += chunk;
     });
@@ -33,14 +48,14 @@ const server = http.createServer((req, res) => {
     req.on('end', function () {
         if(!body) {
             res.statusCode = 400;
-            return res.end('Missing body');
+            return res.end('Missing body parameter');
         }
 
         let jsonObj = JSON.parse(body);
 
         if(!jsonObj) {
             res.statusCode = 400;
-            return res.end('Missing body');
+            return res.end('Body is not json serializable');
         }
 
         if(!jsonObj.componentName) {
@@ -54,11 +69,24 @@ const server = http.createServer((req, res) => {
         try {
             let component = jsonObj.static ?
                 renderStaticServerComponent(componentName, props) : renderServerComponent(componentName, props);
+            if(debug) {
+                console.log(`Server rendering component: ${componentName}` )
+            }
             res.statusCode = 200;
             res.setHeader('Content-Type', 'text/html');
             res.end(component);
         } catch(e) {
-            Raven.captureException(e);
+            if(debug) {
+                console.error(e);    
+            }
+            try {
+                if(sentry) {
+                    Raven.captureException(e);
+                }
+            } catch(ex) {
+                console.error('Raven failed to log error:', ex)
+            }
+            
             res.statusCode = 500;
             return res.end(`Exception on ${componentName}. ${e}`);
         }
@@ -66,8 +94,12 @@ const server = http.createServer((req, res) => {
 });
 
 function getComponentElement(componentName, data) {
-    const componentPath = path.join(componentFolderPath, componentName);
+    const componentPath = path.posix.join(componentFolderPath, componentName);
     let component = require(componentPath);
+    if(debug) {
+        purgeCache(componentPath);
+    }
+
     let element = React.createElement(component.default, data);
     return element;
 }
@@ -85,7 +117,10 @@ function renderServerComponent(componentName, data) {
 }
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/\nBase components folder: ${componentFolderPath}`);
+    if(debug) {
+        console.log(`Debug mode is set to: ${!!debug}`);
+    }
+    console.log(`Server running at http://${hostname}:${port}/\nBase components folder: ${componentFolderPath}`);
 });
 
-module.exports = { getComponentElement, renderServerComponent, renderStaticServerComponent }
+module.exports = { getComponentElement, renderServerComponent, renderStaticServerComponent, server }
