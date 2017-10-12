@@ -10,7 +10,7 @@ A small node httpserver for rendering of react components (must be transpiled if
 
 or
 
-1. Use docker image: iksototh/hastur
+1. Use docker image: frojd/hastur
 
 ## Possible parameters
 

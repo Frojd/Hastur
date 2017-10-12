@@ -73,7 +73,7 @@ const server = http.createServer((req, res) => {
                 console.log(`Server rendering component: ${componentName}` )
             }
             res.statusCode = 200;
-            res.setHeader('Content-Type', 'text/html');
+            res.setHeader('Content-Type', 'text/html; charset=utf-8;');
             res.end(component);
         } catch(e) {
             if(debug) {
