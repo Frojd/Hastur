@@ -9,10 +9,10 @@ install:
 script:
  - npm test
 
- after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - export REPO=frojd/hastur
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker build -f Dockerfile -t $REPO:$COMMIT .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker push $REPO
+after_success:
+ - docker login -u $DOCKER_USER -p $DOCKER_PASS
+ - export REPO=frojd/hastur
+ - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+ - docker build -f Dockerfile -t $REPO:$COMMIT .
+ - docker tag $REPO:$COMMIT $REPO:$TAG
+ - docker push $REPO
