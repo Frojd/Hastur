@@ -44,8 +44,6 @@ function searchCache(moduleName, callback) {
 };
 /* eslint-enable */
 
-module.exports = {
-    purgeCache,
-}
+module.exports = {purgeCache};
 
 /* eslint-enable no-undef, no-unused-vars */

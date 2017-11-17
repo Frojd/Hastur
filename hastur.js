@@ -7,6 +7,7 @@ const ReactDOMServer = require('react-dom/server');
 const React = require('react');
 
 const purgeCache = require('./utils').purgeCache;
+const snakeToCamelCase = require('./utils').snakeCaseToCamelCase;
 
 const args = process.argv;
 
@@ -16,6 +17,7 @@ const envHost = env.HASTUR_HOST;
 const envPort = env.HASTUR_PORT;
 const envDebug = env.HASTUR_DEBUG;
 const envSentry = env.HASTUR_SENTRY;
+const envCamel = env.HASTUR_JSON_SNAKE_TO_CAMEL;
 
 let Raven;
 let sentry;
@@ -34,6 +36,7 @@ const hostname = args.indexOf('host') !== -1 ? args[args.indexOf('host') + 1] : 
 const port = args.indexOf('port') !== -1 ? args[args.indexOf('port') + 1] : envPort ? envPort : 3000;
 const componentFolderPath = args.indexOf('path') !== -1 ? args[args.indexOf('path') + 1] : envPath ? envPath : '';
 const debug = args.indexOf('debug') !== -1 ? true : envDebug ? envDebug : false;
+const parseJson = args.indexOf('toCamelFromSnake') !== -1 ? true : envCamel ? envCamel : false;
 
 const server = http.createServer((req, res) => {
     let body = '';
@@ -65,6 +68,10 @@ const server = http.createServer((req, res) => {
 
         let componentName = jsonObj.componentName;
         let props = jsonObj.props || {};
+
+        if(parseJson) {
+            props = snakeToCamelCase(props);
+        }
 
         try {
             let component = jsonObj.static ?

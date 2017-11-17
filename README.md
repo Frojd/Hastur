@@ -21,12 +21,14 @@ As env:
     HASTUR_HOST=0.0.0.0
     HASTUR_DEBUG=true
     HASTUR_SENTRY=https://xxxx:yyyy@sentry.io/1234
+    HASTUR_JSON_SNAKE_TO_CAMEL=true
 
 As parameters:
 
-    node hastur.js port 3000 host 0.0.0.0 path /path/to/components/ sentry https://xxxx:yyyy@sentry.io/1234 debug
+    node hastur.js port 3000 host 0.0.0.0 path /path/to/components/ sentry https://xxxx:yyyy@sentry.io/1234 debug toCamelFromSnake
 
 ## How to use
+
 When started (without any parameters) hastur will accept application/json http POST request to http://localhost:3000 with this body:
     
     {

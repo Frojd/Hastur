@@ -7,8 +7,12 @@
   "bin": {
     "hastur": "./hastur.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:frojd/Hastur.git"
+  },
   "scripts": {
-    "test": "mocha test/*.test.js",
+    "test": "mocha test/*.test.js --exit",
     "start": "node hastur.js"
   },
   "engines": {
@@ -18,20 +22,21 @@
     "React",
     "Serverrender",
     "ReactDOM",
-    "httpserver"
+    "httpserver",
+    "react sass starterkit"
   ],
   "author": "Daniel Karlsson",
   "license": "MIT",
   "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
-    "mocha": "^3.5.0"
+    "mocha": "^4.0.1"
   },
   "optionalDependencies": {
-    "raven": "^2.1.2"
+    "raven": "^2.2.1"
   }
 }
