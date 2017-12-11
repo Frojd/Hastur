@@ -22,10 +22,11 @@ As env:
     HASTUR_DEBUG=true
     HASTUR_SENTRY=https://xxxx:yyyy@sentry.io/1234
     HASTUR_JSON_SNAKE_TO_CAMEL=true
+    HASTUR_STRIP_DOT_PREFIX=true
 
 As parameters:
 
-    node hastur.js port 3000 host 0.0.0.0 path /path/to/components/ sentry https://xxxx:yyyy@sentry.io/1234 debug toCamelFromSnake
+    node hastur.js port 3000 host 0.0.0.0 path /path/to/components/ sentry https://xxxx:yyyy@sentry.io/1234 debug toCamelFromSnake stripDotPrefix
 
 ## How to use
 

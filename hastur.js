@@ -18,6 +18,7 @@ const envPort = env.HASTUR_PORT;
 const envDebug = env.HASTUR_DEBUG;
 const envSentry = env.HASTUR_SENTRY;
 const envCamel = env.HASTUR_JSON_SNAKE_TO_CAMEL;
+const stripDotPrefix = env.HASTUR_STRIP_DOT_PREFIX;
 
 let Raven;
 let sentry;
@@ -37,6 +38,7 @@ const port = args.indexOf('port') !== -1 ? args[args.indexOf('port') + 1] : envP
 const componentFolderPath = args.indexOf('path') !== -1 ? args[args.indexOf('path') + 1] : envPath ? envPath : '';
 const debug = args.indexOf('debug') !== -1 ? true : envDebug ? envDebug : false;
 const parseJson = args.indexOf('toCamelFromSnake') !== -1 ? true : envCamel ? envCamel : false;
+const removeDotPrefix = args.indexOf('stripDotPrefix') !== -1 ? true : stripDotPrefix ? stripDotPrefix : false;
 
 const server = http.createServer((req, res) => {
     let body = '';
@@ -101,7 +103,14 @@ const server = http.createServer((req, res) => {
 });
 
 function getComponentElement(componentName, data) {
-    const componentPath = path.posix.join(componentFolderPath, componentName);
+    let parsedComponentName = componentName;
+    if(removeDotPrefix) {
+        const componentNames = componentName.split('.');
+        parsedComponentName = componentNames[componentNames.length-1];
+    }
+
+    const componentPath = path.posix.join(componentFolderPath, parsedComponentName);
+    
     let component = require(componentPath);
     if(debug) {
         purgeCache(componentPath);
