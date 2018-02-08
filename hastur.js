@@ -113,7 +113,7 @@ function getComponentElement(componentName, data) {
     
     let component = require(componentPath);
     if(debug) {
-        purgeCache(componentPath);
+        purgeCache(componentPath, componentFolderPath);
     }
 
     let element = React.createElement(component.default, data);
