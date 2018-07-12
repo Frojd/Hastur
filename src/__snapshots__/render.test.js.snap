@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render a component should be able to return a html representation of a reactcomponent 1`] = `"<div class=\\"ReactComponent\\" data-reactroot=\\"\\">ReactComponent </div>"`;
+
+exports[`Render a component should be able to return a html representation of a reactcomponent with props 1`] = `"<div class=\\"ReactComponent\\" data-reactroot=\\"\\">ReactComponent <!-- -->Hello World!</div>"`;
+
+exports[`Render a component should be able to return a static html representation of a reactcomponent 1`] = `"<div class=\\"ReactComponent\\">ReactComponent </div>"`;
+
+exports[`Render a component should return a react element 1`] = `<ReactComponent />`;

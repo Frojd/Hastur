@@ -1,4 +1,4 @@
-FROM node:8.6
+FROM node:8.5
 ADD . /code
 WORKDIR /code
-CMD ["node", "hastur.js"]
+CMD ["node", "app.js"]

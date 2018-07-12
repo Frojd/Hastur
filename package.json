@@ -1,40 +1,43 @@
 {
   "name": "hastur",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Small httpserver for rendering of react components",
   "main": "hastur.js",
   "private": true,
   "bin": {
-    "hastur": "./hastur.js"
+    "hastur": "./app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:frojd/Hastur.git"
   },
   "scripts": {
-    "test": "mocha test/*.test.js --exit",
-    "start": "node hastur.js"
+    "test": "jest",
+    "start": "node app.js"
   },
   "engines": {
     "node": ">=8.5.0"
   },
   "keywords": [
     "React",
-    "Serverrender",
+    "Server render",
     "ReactDOM",
     "httpserver",
-    "react sass starterkit"
+    "react sass starterkit",
+    "ssr",
+    "node"
   ],
   "author": "Daniel Karlsson",
   "license": "MIT",
   "dependencies": {
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1"
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "mocha": "^4.0.1"
+    "chai-http": "^4.0.0",
+    "commander": "^2.16.0",
+    "jest": "^23.2.0"
   },
   "optionalDependencies": {
     "raven": "^2.2.1"
