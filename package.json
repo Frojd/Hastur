@@ -1,6 +1,6 @@
 {
   "name": "hastur",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Small httpserver for rendering of react components",
   "main": "hastur.js",
   "private": true,
