@@ -9,9 +9,9 @@ install:
 script:
  - npm test
 
-# branches:
-#   except:
-#   - develop
+branches:
+  except:
+  - develop
 
 after_success:
  - docker login -u $DOCKER_USER -p $DOCKER_PASS
