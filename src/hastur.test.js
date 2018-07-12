@@ -32,7 +32,7 @@ describe('Test hastur server', function() {
 
     it('it should return 200 empty POST props', (done) => {
         let body = {
-            componentName: path.join(process.cwd(),'test', 'ReactComponent.js'),
+            componentName: path.resolve(process.cwd(),'test', 'ReactComponent.js'),
         }
 
         chai.request(server)
@@ -61,7 +61,7 @@ describe('Test hastur server', function() {
 
     it('it should return 200 and a component with correct POST body', (done) => {
         let body = {
-            componentName: path.join(process.cwd(),'test', 'ReactComponent.js'),
+            componentName: path.resolve(process.cwd(),'test', 'ReactComponent.js'),
             props: {
                 title: 'Hello'
             }
@@ -79,7 +79,7 @@ describe('Test hastur server', function() {
 
     it('it should return static component with static prop set in POST body', (done) => {
         let body = {
-            componentName: path.join(process.cwd(),'test', 'ReactComponent.js'),
+            componentName: path.resolve(process.cwd(),'test', 'ReactComponent.js'),
             props: {
                 title: 'Hello'
             },

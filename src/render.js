@@ -8,6 +8,7 @@ const requireUncached = require('./cache').requireUncached;
 
 const getComponentElement = (componentName, data) => {
     const componentPath = path.posix.join(config.componentsPath, componentName);
+    console.error(componentPath)
     const component = config.debug ? 
         requireUncached(componentPath) :
         require(componentPath);
