@@ -7,8 +7,7 @@ const ReactDOMServer = require(path.join(config.modulesPath, 'react-dom/server')
 const requireUncached = require('./cache').requireUncached;
 
 const getComponentElement = (componentName, data) => {
-    const componentPath = path.posix.join(config.componentsPath, componentName);
-    console.error(componentPath)
+    const componentPath = path.resolve(config.componentsPath, componentName);
     const component = config.debug ? 
         requireUncached(componentPath) :
         require(componentPath);
