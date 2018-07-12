@@ -76,6 +76,7 @@ module.exports = class Hastur {
                     res.setHeader('Content-Type', 'text/html; charset=utf-8;');
                     res.end(component);
                 } catch (e) {
+                    console.error(e);
                     if (debug) {
                         console.error(e);
                     }
