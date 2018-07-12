@@ -2,9 +2,13 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const Hastur = require('./hastur');
 const configuration = require('./config');
-const server = new Hastur(configuration).getServer();
+let server;
 
-chai.use(chaiHttp)
+beforeEach(() => {
+    server = new Hastur(configuration).getServer();
+    server.listen();
+    chai.use(chaiHttp)
+})
 
 describe('Test hastur server', function() {
     it('it should return 405 with GET request', (done) => {
