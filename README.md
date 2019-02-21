@@ -26,7 +26,7 @@ As env:
 
 As parameters:
 
-    node app.js --port 3000 --host 0.0.0.0 --path /path/to/components/ --sentry https://xxxx:yyyy@sentry.io/1234 --debug true --toCamelFromSnake true --stripDotPrefix true
+    node app.js --port 3000 --host 0.0.0.0 --path /path/to/components/ --sentry https://xxxx:yyyy@sentry.io/1234 --debug --toCamelFromSnake --stripDotPrefix
 
 ## How to use
 

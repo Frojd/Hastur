@@ -4,12 +4,12 @@ program
     .description('Starts hastur')
     .option('-h, --host <host>', 'Host')
     .option('-p, --port <port>', 'Port number')
-    .option('-d, --debug <debug>', 'Debug')
+    .option('-d, --debug', 'Debug')
     .option('-P, --path <path>', 'Path to components')
     .option('-m, --modulesPath <modulesPath>', 'Absolute path to node modules')
     .option('-s, --sentry <sentry>', 'Sentry')
-    .option('-r, --stripDotPrefix <stripDotPrefix>', 'Strip prefix before ., ex Components. from Components.Hero')
-    .option('-t, --toCamelFromSnake <toCamelFromCase>', 'Convert json to camelcase from snakecase')
+    .option('-r, --stripDotPrefix', 'Strip prefix before ., ex Components. from Components.Hero')
+    .option('-t, --toCamelFromSnake', 'Convert json to camelcase from snakecase')
     .parse(process.argv);
 
 const env = process.env;
