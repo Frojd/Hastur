@@ -53,11 +53,11 @@ It will try to do a require(`componentName`) and render it with the passed along
 
 **`static` (optional, default: false):**
 
-If set, hastier will return html without react bindings
+If true, Hastur will return html without react bindings
 
  **`context` (optional, default: undefined)**
 
-If you need to pass along things that would otherwise not be included on the server side (such as request-info for example) you canpass it along in the `context` variable. If you set it like:
+If you need to pass along things that would otherwise not be included on the server side (such as request-info for example) you can pass it along in the `context` variable. If you set it like:
 
 ```json
 {
@@ -65,7 +65,7 @@ If you need to pass along things that would otherwise not be included on the ser
 }
 ```
 
-You can then access it in your components in the `SSRContext` object. Which allows you to do stuff like this:
+You can then access it in your components via the `SSRContext` object, which allows you to do stuff like:
 
 ```js
 const currentURL = SSRContext.location ? SSRContext.location : window.location;
