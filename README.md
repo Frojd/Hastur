@@ -28,22 +28,52 @@ As parameters:
 
     node app.js --port 3000 --host 0.0.0.0 --path /path/to/components/ --sentry https://xxxx:yyyy@sentry.io/1234 --debug --toCamelFromSnake --stripDotPrefix
 
+
 ## How to use
 
 When started (without any parameters) hastur will accept application/json http POST request to http://localhost:3000 with this body:
-    
-    {
-        "componentName": "MyComponent",
-        "props": {
-            "title": "my props title",
-            "anyProp": "another prop"
-        },
-        "static": false
-    }
 
-How it works is that it will try to do a require(componentName) (if HASTUR_PATH is set, it will be joined together before)
+```json
+{
+  "componentName": "MyComponent",
+  "props": {
+    "title": "my props title",
+    "anyProp": "another prop"
+  },
+  "static": false,
+  "context": {
+    "location": "https://mysite.com",
+    "otherContext": "foo"
+  }
+}
+```
 
-If static it will only return the html with no react bindings
+
+It will try to do a require(`componentName`) and render it with the passed along `props`. If `HASTUR_PATH` is set, it will be prepended to the `componentName`.
+
+**`static` (optional, default: false):**
+
+If set, hastier will return html without react bindings
+
+ **`context` (optional, default: undefined)**
+
+If you need to pass along things that would otherwise not be included on the server side (such as request-info for example) you canpass it along in the `context` variable. If you set it like:
+
+```json
+{
+  "location": "https://somesite.com/foo"
+}
+```
+
+You can then access it in your components in the `SSRContext` object. Which allows you to do stuff like this:
+
+```js
+const currentURL = SSRContext.location ? SSRContext.location : window.location;
+if (currentURL.search(/foo/)) {
+  alert('The requested URL contains "foo"');
+}
+```
+
 
 ## How to build components
 
