@@ -70,7 +70,7 @@ You can then access it in your components via the `SSRContext` object, which all
 ```js
 const currentURL = SSRContext.location ? SSRContext.location : window.location;
 if (currentURL.search(/foo/)) {
-  alert('The requested URL contains "foo"');
+  console.log('The requested URL contains "foo"');
 }
 ```
 
