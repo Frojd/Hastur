@@ -64,6 +64,8 @@ module.exports = class Hastur {
                     bodyProps;
 
                 try {
+                    global['SSRContext'] = bodyJson.context;
+
                     const component = bodyJson.static ?
                         renderStaticServerComponent(componentName, props) : 
                         renderServerComponent(componentName, props);
@@ -71,6 +73,8 @@ module.exports = class Hastur {
                     if (debug) {
                         console.log(`Server rendering component: ${componentName}`)
                     }
+
+                    delete global['SSRContext'];
 
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'text/html; charset=utf-8;');
