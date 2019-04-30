@@ -30,16 +30,16 @@
   "author": "Daniel Karlsson",
   "license": "MIT",
   "dependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "commander": "^2.16.0",
-    "jest": "^23.2.0"
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "commander": "^2.20.0",
+    "jest": "^24.7.1"
   },
   "optionalDependencies": {
-    "raven": "^2.2.1"
+    "raven": "^2.6.4"
   }
 }
