@@ -6,7 +6,7 @@ describe('Configuration', function() {
     })
 
     it('should return default host', function() {
-        expect(configuration.host).toEqual('0.0.0.0');
+        expect(configuration.host).toEqual('127.0.0.1');
     });
 
     it('should return default debug', function() {
