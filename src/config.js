@@ -20,7 +20,7 @@ function toBool(str){
 
 module.exports = configuration = {
     port: program.port || env.HASTUR_PORT || 3000,
-    host: program.host || env.HASTUR_HOST || '0.0.0.0',
+    host: program.host || env.HASTUR_HOST || '127.0.0.1',
     debug: program.debug || toBool(env.HASTUR_DEBUG) || false,
     sentry: program.sentry || env.HASTUR_SENTRY || false,
     snakeToCamel: program.toCamelFromSnake || toBool(env.HASTUR_JSON_SNAKE_TO_CAMEL) || false,
