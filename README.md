@@ -77,7 +77,6 @@ if (currentURL.search(/foo/)) {
 ```
 
 
-<<<<<<< Updated upstream
 ## How to build components
 
 Components is easiest built through babel-cli:
@@ -86,8 +85,6 @@ Components is easiest built through babel-cli:
     .\node_modules\.bin\babel componentsfolder --out-dir raw --no-babelrc --plugins=transform-class-properties,transform-object-rest-spread --presets=react,env
 ```
 
-=======
->>>>>>> Stashed changes
 ## Extras
 
 Comes by default with optional sentry logging, if you do not plan to use it, please install with the `--no-optional` flag
