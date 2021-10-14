@@ -86,7 +86,7 @@ module.exports = class Hastur {
 
                     if (sentry) {
                         try {
-                            Raven.captureException(e);
+                            require('raven').captureException(e);
                         } catch (ex) {
                             console.error('Raven failed to log error:', ex)
                         }
